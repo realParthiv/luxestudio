@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Studio Salon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #B8860B; /* Gold */
+            --color-secondary: #1a1a1a; /* Dark background */
+            --color-accent: #e8d5a3; /* Soft text */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-secondary);
+            color: var(--color-accent);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: var(--color-accent);
+        }
+        .text-primary { color: var(--color-primary) !important; }
+        .text-secondary { color: var(--color-secondary) !important; }
+        .text-accent { color: var(--color-accent) !important; }
+        .section-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            letter-spacing: -0.05em;
+        }
+        .underline-hover {
+            position: relative;
+            display: inline-block;
+        }
+        .underline-hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: width 0.3s ease-in-out;
+        }
+        .underline-hover:hover::after {
+            width: 100%;
+        }
+        .nav-link {
+            position: relative;
+            font-family: var(--font-body);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .hero-subtitle span, .hero-tagline span {
+            display: inline-block;
+        }
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M10 0v10h10v10h10v10H10v10H0V0h10zm0 20h10v10H0v-10h10zm20-20h10v10h-10V0zm0 20h10v10h-10v-10z" fill="%231A1A1A"></path></svg>');
+            background-repeat: repeat;
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        .service-card, .gallery-item {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .service-card:hover, .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .cta-btn {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .horizontal-track {
+            display: flex;
+            will-change: transform;
+        }
+        .horizontal-wrapper {
+            width: 100vw;
+            overflow-x: hidden;
+        }
+        .gallery-item {
+            flex-shrink: 0;
+            width: 40vw; /* Adjust as needed */
+            margin-right: 20px;
+            position: relative;
+        }
+        .gallery-item:last-child {
+            margin-right: 0;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .text-reveal-wrapper {
+            overflow: hidden;
+        }
+        .text-reveal-wrapper span {
+            display: inline-block;
+        }
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .hero-content-overlay {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
+    </script>
+
+    <header class="fixed top-0 left-0 w-full z-50 p-6 px-8 flex justify-between items-center nav-container">
+        <div class="text-2xl font-bold font-display text-accent">luxestudio</div>
+        <nav>
+            <a href="index.html" class="nav-link mx-4">Home</a>
+            <a href="about.html" class="nav-link mx-4">About</a>
+            <a href="services.html" class="nav-link mx-4">Services</a>
+            <a href="gallery.html" class="nav-link mx-4">Gallery</a>
+            <a href="contact.html" class="nav-link mx-4">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="relative h-screen flex items-center justify-center overflow-hidden hero-section">
+            <video autoplay muted loop playsinline class="video-bg">
+                <source src="https://assets-global.website-files.com/6550984c3566377195b38260/6562615e116c207b748b5086_v7-transcode.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 text-center px-4 hero-content-overlay">
+                <p class="text-primary text-lg font-semibold mb-2 tracking-wider uppercase hero-eyebrow">Elevate Your Aura</p>
+                <h1 class="text-7xl font-bold mb-4 text-accent hero-title">Masterful Hair & Beauty</h1>
+                <p class="text-xl text-accent/90 mb-8 hero-tagline max-w-3xl mx-auto">
+                    Discover unparalleled artistry and premium European treatments in an environment of pure indulgence.
+                </p>
+                <a href="services.html" class="cta-btn px-8 py-4 bg-primary text-secondary font-bold text-lg rounded-full shadow-lg hover:bg-primary-dark inline-block">Explore Our Services</a>
+            </div>
+        </section>
+
+        <section class="py-32 px-8 relative section-to-reveal" style="background-color: #0c0c0c;">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1596063339076-6c1f5a8c6d68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Stylist at work" class="w-full h-auto rounded-lg shadow-xl">
+                    <div class="absolute -bottom-4 -left-4 w-full h-full border-4 border-primary rounded-lg z-[-1]"></div>
+                </div>
+                <div>
+                    <h2 class="text-5xl font-bold mb-6 section-title">The Luxe Difference</h2>
+                    <p class="text-lg leading-relaxed mb-6">At Luxe Studio Salon, we believe in a holistic approach to beauty. Our master stylists, each with over a decade of experience, combine artistic vision with technical precision. We exclusively use the finest European products, meticulously chosen for their quality and efficacy, ensuring that every service transforms and revitalizes.</p>
+                    <p class="text-lg leading-relaxed">Step into a sanctuary where luxury meets expertise, and emerge feeling truly exquisite.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-8 overflow-hidden" style="background-color: #111111;">
+            <div class="max-w-6xl mx-auto text-center mb-16">
+                <h2 class="text-5xl font-bold mb-6 section-title">Curated Services</h2>
+                <p class="text-xl text-accent/80">Experience the pinnacle of beauty care, tailored to your unique desires.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 service-grid">
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Hair Coloring</h3>
+                    <p class="text-lg leading-relaxed">Full spectrum of coloring services including root touch-ups, all-over color, and creative coloring techniques.</p>
+                </div>
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Balayage & Highlights</h3>
+                    <p class="text-lg leading-relaxed">Customized hand-painted highlights and traditional highlighting techniques for dimension and brightness.</p>
+                </div>
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Keratin Treatments</h3>
+                    <p class="text-lg leading-relaxed">Smoothing and strengthening treatments to combat frizz and enhance hair manageability.</p>
+                </div>
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Bridal Styling</h3>
+                    <p class="text-lg leading-relaxed">Specialized hair styling and makeup for brides and wedding parties, ensuring a flawless look.</p>
+                </div>
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Nail Art</h3>
+                    <p class="text-lg leading-relaxed">Creative and intricate nail art designs to complement your personal style.</p>
+                </div>
+                <div class="service-card p-8 rounded-xl shadow-lg border border-primary/20">
+                    <h3 class="text-3xl font-bold mb-4 text-primary">Facial Waxing</h3>
+                    <p class="text-lg leading-relaxed">Gentle and effective facial waxing services for smooth, hair-free skin.</p>
+                </div>
+            </div>
+            <div class="text-center mt-16">
+                <a href="services.html" class="cta-btn px-8 py-4 bg-primary text-secondary font-bold text-lg rounded-full shadow-lg inline-block">View All Services</a>
+            </div>
+        </section>
+
+        <section class="py-32 px-8 section-to-reveal" style="background-color: #0c0c0c;">
+            <div class="max-w-6xl mx-auto text-center mb-16">
+                <h2 class="text-5xl font-bold mb-6 section-title">Our Master Stylists</h2>
+                <p class="text-xl text-accent/80">Years of dedication, countless transformations.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="stat-card text-center p-8 rounded-xl border border-primary/20">
+                    <div class="text-6xl font-bold text-primary stat-number" data-target="15">15+</div>
+                    <p class="text-xl mt-4">Years of Expertise</p>
+                </div>
+                <div class="stat-card text-center p-8 rounded-xl border border-primary/20">
+                    <div class="text-6xl font-bold text-primary stat-number" data-target="5000">5000+</div>
+                    <p class="text-xl mt-4">Satisfied Clients</p>
+                </div>
+                <div class="stat-card text-center p-8 rounded-xl border border-primary/20">
+                    <div class="text-6xl font-bold text-primary stat-number" data-target="100">100+</div>
+                    <p class="text-xl mt-4">Awards & Recognition</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-8 overflow-hidden gallery-wrapper" style="background-color: #111111;">
+            <div class="max-w-6xl mx-auto text-center mb-16">
+                <h2 class="text-5xl font-bold mb-6 section-title">A Glimpse of Glamour</h2>
+                <p class="text-xl text-accent/80">Witness the artistry that defines Luxe Studio Salon.</p>
+            </div>
+            <div class="horizontal-wrapper">
+                <div class="horizontal-track">
+                    <div class="gallery-item aspect-square">
+                        <img src="https://images.unsplash.com/photo-1583394838529-6392904082d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 1" class="object-cover rounded-lg">
+                    </div>
+                    <div class="gallery-item aspect-square">
+                        <img src="https://images.unsplash.com/photo-1519677137144-72a7275c9b3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 2" class="object-cover rounded-lg">
+                    </div>
+                    <div class="gallery-item aspect-square">
+                        <img src="https://images.unsplash.com/photo-1619702418335-7c450a76a950?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 3" class="object-cover rounded-lg">
+                    </div>
+                    <div class="gallery-item aspect-square">
+                        <img src="https://images.unsplash.com/photo-1622631126531-e30521176862?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 4" class="object-cover rounded-lg">
+                    </div>
+                    <div class="gallery-item aspect-square">
+                        <img src="https://images.unsplash.com/photo-1606616735574-6f8d70a04980?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 5" class="object-cover rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-8 relative section-to-reveal" style="background-color: #0c0c0c;">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-5xl font-bold mb-6 section-title">Book Your Transformation</h2>
+                <p class="text-xl text-accent/80 mb-8">Ready to experience the Luxe Studio difference? Schedule your appointment today.</p>
+                <a href="contact.html" class="cta-btn px-10 py-5 bg-primary text-secondary font-bold text-xl rounded-full shadow-lg inline-block underline-hover">Schedule Appointment</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-16 px-8 text-center text-accent/70" style="background-color: #0c0c0c;">
+        <div class="mb-6 flex justify-center space-x-6">
+            <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">Instagram</a>
+            <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">Facebook</a>
+        </div>
+        <p>&copy; 2024 luxestudio. All rights reserved. | <a href="mailto:info@luxestudiosalon.com" class="hover:text-primary transition-colors">info@luxestudiosalon.com</a></p>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        // Page Entrance Timeline
+        tl.from(".nav-container", { y: -80, autoAlpha: 0, duration: 0.8 })
+          .from(".hero-eyebrow", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+          .from(".hero-tagline", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+          .from(".cta-btn", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // Text Split Animation on Headlines
+        SplitText.create("h1, h2", {
+            onSplit: ({ chars }) => {
+                gsap.from(chars, {
+                    y: 100,
+                    autoAlpha: 0,
+                    stagger: 0.02,
+                    duration: 0.8,
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: "h1, h2",
+                        start: "top 85%",
+                        once: true
+                    }
+                });
+            }
+        });
+
+        // ScrollTrigger.batch for Service Cards
+        ScrollTrigger.batch(".service-card", {
+            onEnter: (batch) => gsap.from(batch, {
+                opacity: 0,
+                y: 60,
+                scale: 0.95,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power3.out"
+            }),
+            once: true
+        });
+
+        // Clip-Path Section Reveals
+        gsap.from(".section-to-reveal", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+        });
+
+        // Magnetic CTA Buttons
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+            btn.addEventListener("mousemove", (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+            });
+            btn.addEventListener("mouseleave", () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // Advanced GSAP Techniques
+
+        // 1. Horizontal Scroll Section for Gallery
+        gsap.to(".horizontal-track", {
+            x: () => -(document.querySelector(".horizontal-track").scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".gallery-wrapper",
+                start: "top top",
+                end: () => "+=" + (document.querySelector(".horizontal-track").scrollWidth - window.innerWidth),
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+            }
+        });
+
+        // 6. Counter Number Animation
+        gsap.utils.toArray(".stat-number").forEach(el => {
+            const target = parseInt(el.dataset.target);
+            gsap.from({ val: 0 }, {
+                val: target, duration: 2, ease: "power2.out",
+                scrollTrigger: { trigger: el, start: "top 85%", once: true },
+                onUpdate: function() {
+                    el.textContent = Math.round(this.targets()[0].val) + "+";
+                }
+            });
+        });
+
+        // 4. SVG Mask / Clip-Path Reveal (using inset for simplicity, can be expanded)
+        gsap.from(".section-to-reveal", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+        });
+
+        // 5. Staggered Text Line Reveal (for subtitles/descriptions if needed, currently not applied but can be used on hero tagline)
+        // Example if applied to hero tagline:
+        const heroTagline = document.querySelector('.hero-tagline');
+        if (heroTagline) {
+            const splitTagline = new SplitText(heroTagline, { type: "lines", linesClass: "line-wrap" });
+            splitTagline.lines.forEach(line => line.parentNode.style.overflow = "hidden");
+            gsap.from(splitTagline.lines, {
+                y: "100%", duration: 0.8, stagger: 0.1, ease: "power3.out",
+                scrollTrigger: { trigger: heroTagline, start: "top 85%", once: true }
+            });
+        }
+
+        // Ensure video controls are hidden if present
+        const video = document.querySelector('.video-bg');
+        if (video) {
+            video.controls = false;
+        }
+
+    </script>
+</body>
+</html>

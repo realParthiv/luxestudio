@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "site_name": "luxestudio",
+    "subject": "Luxe Studio Salon",
+    "about_summary": "Luxe Studio Salon offers a premium hair and beauty experience with master stylists boasting over a decade of expertise. We exclusively use top-tier European products for services ranging from advanced coloring and treatments to meticulous nail and facial care, ensuring exceptional results in a welcoming, luxury environment.",
+    "email": "info@luxestudiosalon.com"
+  },
+  "theme": {
+    "mood": "luxury",
+    "primary_color": "#B8860B",
+    "font_display": "Playfair Display",
+    "font_body": "Lato"
+  },
+  "creativeDirection": {
+    "personality": "luxurious, elegant, modern",
+    "moodKeywords": [
+      "warm",
+      "elegant",
+      "modern luxury",
+      "premium",
+      "welcoming",
+      "spa-like",
+      "fashion editorial"
+    ],
+    "avoidPatterns": [
+      "overly clinical",
+      "cold",
+      "budget-focused",
+      "fast-paced"
+    ],
+    "inspirationReference": "high-end spa, fashion editorial set, soft lighting, marble surfaces, gold accents, plush chairs"
+  },
+  "pages": [
+    "index",
+    "about",
+    "services",
+    "gallery",
+    "contact"
+  ],
+  "featured_items": [
+    {
+      "title": "Bridal Styling Portfolio",
+      "description": "Exquisite bridal hairstyles and makeup looks created by our master stylists for unforgettable wedding days."
+    },
+    {
+      "title": "Transformative Balayage & Highlights",
+      "description": "Showcasing seamless, sun-kissed balayage and vibrant highlights achieved with premium European color lines."
+    },
+    {
+      "title": "Client Testimonials: The Luxe Experience",
+      "description": "Hear directly from our discerning clients about their exceptional experiences and transformative results."
+    }
+  ],
+  "product": null,
+  "services": [
+    {
+      "name": "Hair Coloring",
+      "description": "Full spectrum of coloring services including root touch-ups, all-over color, and creative coloring techniques."
+    },
+    {
+      "name": "Balayage & Highlights",
+      "description": "Customized hand-painted highlights and traditional highlighting techniques for dimension and brightness."
+    },
+    {
+      "name": "Keratin Treatments",
+      "description": "Smoothing and strengthening treatments to combat frizz and enhance hair manageability."
+    },
+    {
+      "name": "Hair Botox",
+      "description": "Nourishing treatment designed to repair damage, add shine, and reduce frizz without harsh chemicals."
+    },
+    {
+      "name": "Bridal Styling",
+      "description": "Specialized hair styling and makeup for brides and wedding parties, ensuring a flawless look for your special day."
+    },
+    {
+      "name": "Haircuts",
+      "description": "Precision haircuts tailored to your face shape and lifestyle, executed by experienced stylists."
+    },
+    {
+      "name": "Scalp Treatments",
+      "description": "Revitalizing scalp treatments for optimal hair health and growth, including personalized analysis."
+    },
+    {
+      "name": "Deep Conditioning",
+      "description": "Intensive conditioning treatments to restore moisture, shine, and strength to dry or damaged hair."
+    },
+    {
+      "name": "Nail Art",
+      "description": "Creative and intricate nail art designs to complement your personal style."
+    },
+    {
+      "name": "Eyebrow Threading",
+      "description": "Precise eyebrow shaping and grooming using the traditional threading method."
+    },
+    {
+      "name": "Facial Waxing",
+      "description": "Gentle and effective facial waxing services for smooth, hair-free skin."
+    }
+  ],
+  "social_links": [
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/luxestudiosalon"
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/luxestudiosalon"
+    }
+  ]
+}
