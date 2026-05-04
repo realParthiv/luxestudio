@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Studio Salon - Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #B8860B;
+            --color-secondary: #1a1a1a; /* Dark background */
+            --color-accent: #c9a84c;   /* Gold accent */
+            --color-text: #f5e6c8;     /* Light text */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-secondary);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            scroll-behavior: auto !important; /* Lenis handles scrolling */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+        }
+
+        .text-primary { color: var(--color-primary) !important; }
+        .text-secondary { color: var(--color-secondary) !important; }
+        .text-accent { color: var(--color-accent) !important; }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .work-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 168, 76, 0.15);
+        }
+
+        .cta-btn {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--color-accent);
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201,168,76,0.5), rgba(201,168,76,0) 50%);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease-out;
+        }
+        .cta-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        /* Clip-path reveal for sections */
+        .section-reveal {
+            clip-path: inset(100% 0% 0% 0%);
+        }
+
+        /* Horizontal Scroll Styles */
+        .horizontal-section {
+            overflow-x: hidden;
+        }
+        .horizontal-track {
+            display: flex;
+            white-space: nowrap;
+        }
+        .horizontal-item {
+            flex: 0 0 auto;
+            width: 80vw; /* Example width */
+            margin-right: 20px; /* Spacing between items */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 1024px) {
+            .horizontal-item {
+                width: 50vw;
+            }
+        }
+
+        /* Parallax Styles */
+        .parallax-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Allow for movement */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Line Reveal Text */
+        .reveal-lines p {
+            overflow: hidden;
+            margin: 0;
+        }
+        .reveal-lines .line-wrap {
+            display: block;
+        }
+
+        /* Custom Scrollbar (optional, for better aesthetics if needed) */
+        ::-webkit-scrollbar {
+            width: 8px;
+            background-color: var(--color-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--color-accent);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: var(--color-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 py-6 px-8 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent transition-all duration-500">
+        <div class="text-2xl font-bold font-display text-accent">Luxestudio</div>
+        <ul class="flex space-x-8">
+            <li><a href="index.html" class="nav-link text-lg font-medium">Home</a></li>
+            <li><a href="about.html" class="nav-link text-lg font-medium">About</a></li>
+            <li><a href="services.html" class="nav-link text-lg font-medium">Services</a></li>
+            <li><a href="gallery.html" class="nav-link text-lg font-medium">Gallery</a></li>
+            <li><a href="contact.html" class="nav-link text-lg font-medium">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden" style="background: url('https://images.unsplash.com/photo-1570172619649-f966b1a2c72a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="relative z-10 p-8">
+            <p class="text-sm font-medium text-gray-300 mb-4 tracking-wider uppercase" data-animation="fade-in-up">The Art of Transformation</p>
+            <h1 class="text-6xl md:text-8xl font-bold font-display text-white mb-6" data-animation="split-text-reveal">Our Masterpieces</h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto" data-animation="fade-in-up">Explore a curated collection of our finest work, showcasing the elegance and artistry that define Luxe Studio Salon.</p>
+            <a href="#gallery-showcase" class="cta-btn relative inline-block text-accent border-accent py-3 px-8 text-lg font-semibold rounded-md hover:bg-accent hover:text-secondary transition-colors duration-300" data-animation="fade-in-scale">Discover More</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="gallery-showcase" class="relative py-20 overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold font-display text-accent mb-4" data-animation="split-text-reveal">Visual Symphony</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto" data-animation="fade-in-up">A journey through stunning transformations and refined aesthetics. Each image is a testament to our commitment to excellence.</p>
+                </div>
+
+                <div class="horizontal-wrapper relative">
+                    <div class="horizontal-track flex gap-6" data-animation="fade-in-up">
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1551905947-9297447b4a66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1580587399793-f65f48098350?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1551892805-213074e0e77f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1605617875206-d91b386c561c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1521585872156-4d9208c39938?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1607277878921-6d9231c73c14?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); height: 70vh; min-width: 60vw;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-20 px-4">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" data-animation="card-reveal">
+                <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bridal Styling" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Bridal Elegance</h3>
+                    <p class="text-gray-300 leading-relaxed">Exquisite bridal hairstyles and makeup looks created by our master stylists for unforgettable wedding days.</p>
+                </div>
+                <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1585898986762-4f625191c91a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Balayage" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Sun-Kissed Balayage</h3>
+                    <p class="text-gray-300 leading-relaxed">Showcasing seamless, sun-kissed balayage achieved with premium European color lines.</p>
+                </div>
+                <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1522771735398-67f7a938247f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Color Transformation" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Vibrant Transformations</h3>
+                    <p class="text-gray-300 leading-relaxed">Bold and beautiful color transformations that redefine personal style.</p>
+                </div>
+                 <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1531384310405-3408f83c2361?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Elegant Updo" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Chic Updos</h3>
+                    <p class="text-gray-300 leading-relaxed">Sophisticated updos perfect for any special occasion, exuding timeless grace.</p>
+                </div>
+                 <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1534368503939-e369396c2372?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nail Art" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Artistic Nails</h3>
+                    <p class="text-gray-300 leading-relaxed">Intricate and creative nail art designs to make a statement.</p>
+                </div>
+                 <div class="work-card bg-secondary-light rounded-lg p-6 text-center shadow-lg border border-transparent">
+                    <img src="https://images.unsplash.com/photo-1627148618541-405c9096678f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Facial Care" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-bold font-display text-accent mb-3">Radiant Skin</h3>
+                    <p class="text-gray-300 leading-relaxed">Premium facial care treatments that leave your skin glowing with health.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-32 px-4 parallax-section" style="background-image: url('https://images.unsplash.com/photo-1581597895344-4764218c376e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="container mx-auto text-center relative z-10">
+                <div class="reveal-lines">
+                    <p class="text-4xl md:text-6xl font-bold font-display text-white mb-8 tracking-tight leading-tight" data-animation="line-reveal">Experience the Luxe Difference.</p>
+                </div>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto" data-animation="fade-in-up">Where luxury meets artistry, and every client is treated to an unparalleled beauty experience.</p>
+                <a href="contact.html" class="cta-btn relative inline-block text-white border-white py-4 px-10 text-xl font-semibold rounded-md hover:bg-white hover:text-secondary transition-colors duration-300" data-animation="fade-in-scale">Book Your Appointment</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary py-12 px-8 text-center">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <div class="text-2xl font-bold font-display text-accent">Luxestudio</div>
+                <p class="text-gray-400 mt-2">&copy; 2024 Luxe Studio Salon. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors duration-300">Instagram</a>
+                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors duration-300">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // PAGE ENTRANCE TIMELINE
+        const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+        pageLoadTimeline.from("#main-nav", { y: -80, autoAlpha: 0, duration: 0.8 })
+                      .from("[data-animation='fade-in-up'], [data-animation='split-text-reveal']", { y: 30, autoAlpha: 0, stagger: 0.4, duration: 0.6 }, "-=0.4")
+                      .from("[data-animation='fade-in-scale']", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // TEXT SPLIT ANIMATION ON ALL HEADLINES
+        SplitText.create("h1, h2", { onSplit: ({ chars }) => {
+            gsap.from(chars, {
+                y: 100,
+                autoAlpha: 0,
+                stagger: 0.02,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: "h1, h2",
+                    start: "top 85%",
+                    once: true
+                }
+            });
+        }});
+
+        // SCROLLTRIGGER.BATCH FOR ALL CARD GRIDS
+        ScrollTrigger.batch(".work-card", {
+            onEnter: (batch) => gsap.from(batch, {
+                opacity: 0,
+                y: 60,
+                scale: 0.95,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power3.out"
+            }),
+            once: true
+        });
+
+        // CLIP-PATH SECTION REVEALS
+        gsap.from(".section-reveal", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: ".section-reveal", start: "top 80%", once: true }
+        });
+
+        // MAGNETIC CTA BUTTONS
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+            btn.addEventListener("mousemove", (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+            });
+            btn.addEventListener("mouseleave", () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // ADVANCED GSAP TECHNIQUES SELECTION:
+
+        // 1. HORIZONTAL SCROLL SECTION
+        gsap.to(".horizontal-track", {
+            x: () => -(document.querySelector(".horizontal-track").scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".horizontal-wrapper",
+                start: "top top",
+                end: () => "+=" + (document.querySelector(".horizontal-track").scrollWidth - window.innerWidth),
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+            }
+        });
+
+        // 3. PARALLAX IMAGE DEPTH LAYERS
+        gsap.utils.toArray(".parallax-section").forEach(section => {
+            const bg = section.querySelector('.absolute.inset-0.bg-black\/70'); // Target the overlay div
+            const content = section.querySelector('.container.mx-auto'); // Target the content div
+
+            gsap.to(section, { // Animate the section itself to move background
+                yPercent: -15, // Move section up slightly to reveal background underneath
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            gsap.from(content, { // Animate content fade in
+                autoAlpha: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 70%",
+                    once: true
+                }
+            });
+        });
+
+
+        // 5. STAGGERED TEXT LINE REVEAL (mask style)
+        gsap.utils.toArray(".reveal-lines p").forEach(p => {
+            const split = new SplitText(p, { type: "lines", linesClass: "line-wrap" });
+            split.lines.forEach(line => {
+                line.parentNode.style.overflow = "hidden";
+                line.style.display = "block"; // Ensure lines are block elements
+            });
+            gsap.from(split.lines, {
+                y: "100%", duration: 0.8, stagger: 0.1, ease: "power3.out",
+                scrollTrigger: { trigger: p, start: "top 85%", once: true }
+            });
+        });
+
+        // Adding a generic fade-in-up for elements without specific animations
+        $("[data-animation]").each(function() {
+            const animType = $(this).data("animation");
+            if (animType === "fade-in-up") {
+                gsap.from(this, {
+                    y: 40,
+                    autoAlpha: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: this, start: "top 90%", once: true }
+                });
+            } else if (animType === "fade-in-scale") {
+                 gsap.from(this, {
+                    y: 30,
+                    autoAlpha: 0,
+                    scale: 0.95,
+                    duration: 0.7,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: this, start: "top 90%", once: true }
+                });
+            } else if (animType === "split-text-reveal") {
+                // Already handled by SplitText.create above for h1, h2
+                // For other elements needing split text, more logic can be added
+            } else if (animType === "card-reveal") {
+                // Already handled by ScrollTrigger.batch
+            }
+        });
+
+        // Ensure navigation background changes on scroll
+        const nav = document.getElementById('main-nav');
+        ScrollTrigger.create({
+            start: "top 100",
+            end: 9999,
+            toggleClass: { className: "bg-gradient-to-b from-black/90 to-transparent", "className": "bg-black/90" }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Luxe Studio Salon</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #B8860B;
+            --color-secondary: #1e1e1e;
+            --color-accent: #c9a84c;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --bg-dark: #0c0c0c;
+            --text-light: #e8d5a3;
+            --text-white: #f5e6c8;
+            --gold-accent: #c9a84c;
+        }
+        .text-primary { color: var(--color-primary) !important; }
+        .text-secondary { color: var(--color-secondary) !important; }
+        .text-accent { color: var(--color-accent) !important; }
+        body {
+            background-color: var(--bg-dark);
+            font-family: var(--font-body);
+            color: var(--text-light);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: var(--text-white);
+        }
+        .nav-link {
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .nav-link:hover {
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        .cta-btn {
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .cta-btn:hover {
+            background-color: var(--color-accent);
+            color: var(--bg-dark);
+        }
+        .service-card {
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            background-color: rgba(25, 25, 25, 0.5);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(201, 168, 76, 0.15);
+        }
+        .section-title {
+            letter-spacing: 0.05em;
+        }
+        .section-description {
+            line-height: 1.7;
+        }
+        .thin-border-bottom {
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+        .line-reveal-mask {
+            overflow: hidden;
+        }
+        .line-wrap {
+            overflow: hidden;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed top-0 left-0 right-0 z-50 py-6 px-8 flex justify-between items-center bg-transparent backdrop-blur-sm">
+        <a href="index.html" class="text-2xl font-bold font-display text-white hover:text-accent transition duration-300">Luxe Studio</a>
+        <nav>
+            <a href="index.html" class="nav-link mx-4 text-white hover:text-accent">Home</a>
+            <a href="about.html" class="nav-link mx-4 text-white hover:text-accent">About</a>
+            <a href="services.html" class="nav-link mx-4 text-white hover:text-accent">Services</a>
+            <a href="gallery.html" class="nav-link mx-4 text-white hover:text-accent">Gallery</a>
+            <a href="contact.html" class="nav-link mx-4 text-white hover:text-accent">Contact</a>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="relative h-screen flex items-center justify-center overflow-hidden text-center">
+            <div class="absolute inset-0 z-0">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                    <source src="https://res.cloudinary.com/dfxkz8o5n/video/upload/v1702589855/luxestudio/luxestudio-hero-vid_h50xjp.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-black opacity-60"></div>
+            </div>
+            <div class="relative z-10 text-white px-4">
+                <p class="text-lg mb-2 uppercase tracking-wider text-accent" id="hero-eyebrow">Masterful Craftsmanship</p>
+                <h1 class="text-6xl md:text-8xl font-bold font-display mb-4" id="hero-title">Experience Unrivaled Elegance</h1>
+                <p class="text-xl md:text-2xl mb-8 w-full md:w-3/4 lg:w-1/2 mx-auto" id="hero-subtitle">
+                    Your sanctuary for bespoke beauty and transformative treatments, meticulously curated for the discerning individual.
+                </p>
+                <a href="services.html" class="cta-btn inline-block px-8 py-4 text-lg font-semibold border-2 border-accent text-accent rounded-full" id="hero-cta">Explore Our Services</a>
+            </div>
+        </section>
+
+        <section class="relative py-20 px-8" id="service-overview">
+            <div class="absolute inset-0 z-0 opacity-5 pointer-events-none">
+                <svg class="w-full h-full" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_101_28)">
+                        <path d="M1361 102L1361 102C1345 94.8431 1326.5 91.2518 1306 91.7518C1279.5 92.5018 1253.5 94.5018 1229 98.7518C1204.5 103.252 1180.5 109.502 1158.5 117.502C1136.5 125.502 1117 135.752 1099 148.752C1081 161.752 1065.5 177.502 1051 195.502C1036.5 213.502 1024 234.252 1013.5 257.252C1003 280.252 994 305.502 987 332.252C980 359.002 975 387.252 971.5 417.502C968 447.752 966 479.752 965 513.502L965 801.502L1439.5 801.502L1439.5 102L1361 102Z" stroke="var(--color-accent)" stroke-width="0.5" fill="url(#paint0_linear_101_28)"/>
+                        <path d="M714 61.5L714 61.5C700.5 57.3155 685.5 55.3155 669 55.8155C642.5 56.5655 616.5 58.5655 592 62.8155C567.5 67.3155 543.5 73.5655 521.5 81.5655C500.5 89.5655 481 99.8155 463 112.8155C445 125.8155 429.5 141.5655 415 159.5655C400.5 177.5655 388 198.3155 377.5 221.3155C367 244.3155 358 269.5655 351 296.3155C344 323.0655 339 351.3155 335.5 381.5655C332 411.8155 330 443.8155 329 477.5655L329 801.5655L803.5 801.5655L803.5 61.5655L714 61.5Z" stroke="var(--color-accent)" stroke-width="0.5" fill="url(#paint1_linear_101_28)"/>
+                        <path d="M1450 200L1450 200C1434 192.843 1415.5 189.252 1395 189.752C1368.5 190.502 1342.5 192.502 1318 196.752C1293.5 201.252 1269.5 207.502 1247.5 215.502C1225.5 223.502 1206 233.752 1188 246.752C1170 259.752 1154.5 275.502 1139 293.502C1124.5 311.502 1112 332.252 1101.5 355.252C1091 378.252 1082 403.502 1075 430.252C1068 457.002 1063 485.252 1059.5 515.502C1056 545.752 1054 577.752 1053 611.502L1053 801.502L1527.5 801.502L1527.5 200L1450 200Z" stroke="var(--color-accent)" stroke-width="0.5" fill="url(#paint2_linear_101_28)"/>
+                    </g>
+                    <defs>
+                        <linearGradient id="paint0_linear_101_28" x1="1351.75" y1="102" x2="965" y2="801.502" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_101_28" x1="704.75" y1="61.5655" x2="329" y2="801.5655" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="paint2_linear_101_28" x1="1440" y1="200" x2="1053" y2="801.502" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                        </linearGradient>
+                        <clipPath id="clip0_101_28">
+                            <rect width="1440" height="800" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center section-title mb-6" id="services-header">Our Signature Services</h2>
+                <p class="text-lg text-center section-description mb-12" id="services-intro">
+                    Discover a curated selection of premium hair and beauty services, delivered with unparalleled expertise and the finest European products.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="service-grid">
+                    <!-- Service cards will be populated by GSAP -->
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-20 px-8" id="stats-section">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold section-title mb-6" id="stats-title">A Legacy of Excellence</h2>
+                <p class="text-lg section-description mb-12" id="stats-intro">
+                    Years of dedication, countless transformations, and a commitment to perfection.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="stat-item">
+                        <div class="stat-number text-white" data-target="15">15+</div>
+                        <p class="text-accent font-semibold uppercase tracking-wider mt-2">Years of Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number text-white" data-target="10000">10000+</div>
+                        <p class="text-accent font-semibold uppercase tracking-wider mt-2">Client Transformations</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number text-white" data-target="500">500+</div>
+                        <p class="text-accent font-semibold uppercase tracking-wider mt-2">Master Stylists Trained</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-20 px-8 flex items-center justify-center min-h-[70vh] overflow-hidden section-to-reveal" id="premium-products-section">
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <img src="https://res.cloudinary.com/dfxkz8o5n/image/upload/v1702589854/luxestudio/luxestudio-product-bg_fyr2t5.jpg" alt="Premium Products Background" class="w-full h-full object-cover parallax-bg">
+                <div class="absolute inset-0 bg-black opacity-60"></div>
+            </div>
+            <div class="relative z-10 max-w-3xl text-center">
+                <h2 class="text-4xl font-bold section-title mb-6" id="products-header">Our Commitment to Quality</h2>
+                <p class="text-lg section-description mb-8" id="products-intro">
+                    We exclusively partner with the world's most esteemed European brands, ensuring every strand of hair and every touch of skin receives the pinnacle of care and innovation.
+                </p>
+                <a href="about.html#brands" class="cta-btn inline-block px-8 py-4 text-lg font-semibold border-2 border-accent text-accent rounded-full">Discover Our Brands</a>
+            </div>
+        </section>
+
+        <section class="relative py-20 px-8" id="testimonials-section">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-center section-title mb-12" id="testimonials-header">Voices of Luxe</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="testimonial-grid">
+                    <!-- Testimonial cards will be populated by GSAP -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-10 px-8 text-center border-t border-accent/20">
+        <div class="flex justify-center space-x-6 mb-6">
+            <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-text-light hover:text-accent transition duration-300 text-xl">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-text-light hover:text-accent transition duration-300 text-xl">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </div>
+        <p class="text-sm text-text-light/70">&copy; 2023 Luxe Studio Salon. All rights reserved.</p>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
+
+        // 1. Page Entrance Timeline
+        const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+        pageLoadTimeline.from(".fixed", { y: -80, autoAlpha: 0, duration: 0.8 })
+                      .from("#hero-eyebrow", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                      .from("#hero-title", { y: 60, autoAlpha: 0, duration: 0.8 }, "-=0.4")
+                      .from("#hero-subtitle", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                      .from("#hero-cta", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // 2. Text Split Animation on Headlines
+        SplitText.create("h1, h2", { onSplit: ({ chars }) => {
+            gsap.from(chars, {
+                y: 100,
+                autoAlpha: 0,
+                stagger: 0.02,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: "h1, h2",
+                    start: "top 85%",
+                    once: true
+                }
+            });
+        }});
+
+        // Service Data
+        const servicesData = [
+            {"name": "Hair Coloring", "description": "Full spectrum of coloring services including root touch-ups, all-over color, and creative coloring techniques."},
+            {"name": "Balayage & Highlights", "description": "Customized hand-painted highlights and traditional highlighting techniques for dimension and brightness."},
+            {"name": "Keratin Treatments", "description": "Smoothing and strengthening treatments to combat frizz and enhance hair manageability."},
+            {"name": "Hair Botox", "description": "Nourishing treatment designed to repair damage, add shine, and reduce frizz without harsh chemicals."},
+            {"name": "Bridal Styling", "description": "Specialized hair styling and makeup for brides and wedding parties, ensuring a flawless look for your special day."},
+            {"name": "Haircuts", "description": "Precision haircuts tailored to your face shape and lifestyle, executed by experienced stylists."},
+            {"name": "Scalp Treatments", "description": "Revitalizing scalp treatments for optimal hair health and growth, including personalized analysis."},
+            {"name": "Deep Conditioning", "description": "Intensive conditioning treatments to restore moisture, shine, and strength to dry or damaged hair."},
+            {"name": "Nail Art", "description": "Creative and intricate nail art designs to complement your personal style."},
+            {"name": "Eyebrow Threading", "description": "Precise eyebrow shaping and grooming using the traditional threading method."},
+            {"name": "Facial Waxing", "description": "Gentle and effective facial waxing services for smooth, hair-free skin."}
+        ];
+
+        // Populate Service Cards
+        const serviceGrid = document.getElementById('service-grid');
+        servicesData.forEach((service, index) => {
+            const cardHtml = `
+                <div class="service-card p-6 rounded-lg text-center transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                    <h3 class="text-2xl font-bold font-display mb-3">${service.name}</h3>
+                    <p class="text-sm text-text-light/80 leading-relaxed">${service.description}</p>
+                </div>
+            `;
+            serviceGrid.innerHTML += cardHtml;
+        });
+
+        // 3. ScrollTrigger.batch for Service Cards
+        ScrollTrigger.batch(".service-card", {
+            onEnter: batch => gsap.from(batch, {
+                opacity: 0,
+                y: 60,
+                scale: 0.95,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power3.out",
+                overwrite: "auto"
+            }),
+            start: "top 85%",
+            once: true
+        });
+
+        // 4. Clip-Path Section Reveals
+        gsap.from("#premium-products-section", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: "#premium-products-section", start: "top 80%", once: true }
+        });
+        gsap.from("#testimonials-section", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: "#testimonials-section", start: "top 80%", once: true }
+        });
+
+        // 5. Magnetic CTA Buttons
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+            btn.addEventListener("mousemove", (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+            });
+            btn.addEventListener("mouseleave", () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // Advanced GSAP Techniques Selection:
+        // 1. Parallax Image Depth Layers
+        gsap.utils.toArray(".parallax-section").forEach(section => {
+            const bg = section.querySelector(".parallax-bg");
+            gsap.to(bg, {
+                yPercent: -30,
+                ease: "none",
+                scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true }
+            });
+        });
+
+        // 2. Staggered Text Line Reveal (mask style)
+        document.querySelectorAll(".reveal-lines p").forEach(p => {
+            const split = new SplitText(p, { type: "lines", linesClass: "line-wrap" });
+            split.lines.forEach(line => line.parentNode.style.overflow = "hidden");
+            gsap.from(split.lines, {
+                y: "100%", duration: 0.8, stagger: 0.1, ease: "power3.out",
+                scrollTrigger: { trigger: p, start: "top 85%", once: true }
+            });
+        });
+
+        // 3. Counter Number Animation
+        gsap.utils.toArray(".stat-number").forEach(el => {
+            const target = parseInt(el.dataset.target);
+            gsap.from({ val: 0 }, {
+                val: target, duration: 2, ease: "power2.out",
+                scrollTrigger: { trigger: el, start: "top 85%", once: true },
+                onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + "+"; }
+            });
+        });
+
+        // Testimonial Data
+        const testimonialsData = [
+            { "quote": "The most incredible hair transformation I've ever experienced. The attention to detail and the ambiance were simply divine.", "author": "Isabella Rossi", "title": "Satisfied Client" },
+            { "quote": "From the moment I walked in, I felt pampered and understood. Luxe Studio Salon is truly a haven for luxury beauty.", "author": "Marcus Chen", "title": "Regular Patron" },
+            { "quote": "My wedding day hair was everything I dreamed of and more. The bridal styling team at Luxe Studio Salon is exceptionally talented.", "author": "Sophia Loren", "title": "Bride" }
+        ];
+
+        // Populate Testimonial Cards
+        const testimonialGrid = document.getElementById('testimonial-grid');
+        testimonialsData.forEach(testimonial => {
+            const cardHtml = `
+                <div class="testimonial-card p-6 rounded-lg border border-accent/20" style="background-color: rgba(25, 25, 25, 0.5);">
+                    <p class="text-lg italic mb-4 leading-relaxed">"${testimonial.quote}"</p>
+                    <p class="font-semibold text-white">${testimonial.author}</p>
+                    <p class="text-sm text-accent/80">${testimonial.title}</p>
+                </div>
+            `;
+            testimonialGrid.innerHTML += cardHtml;
+        });
+
+        // Batch animation for testimonial cards
+        ScrollTrigger.batch(".testimonial-card", {
+            onEnter: batch => gsap.from(batch, {
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out",
+                overwrite: "auto"
+            }),
+            start: "top 90%",
+            once: true
+        });
+
+    </script>
+</body>
+</html>

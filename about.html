@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Luxe Studio Salon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #B8860B;
+            --color-secondary: #1a1a1a;
+            --color-accent: #c9a84c;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        .text-primary { color: var(--color-primary) !important; }
+        .text-secondary { color: var(--color-secondary) !important; }
+        .text-accent { color: var(--color-accent) !important; }
+
+        body {
+            background-color: var(--color-secondary);
+            color: #f5e6c8;
+            font-family: var(--font-body);
+            overflow-x: hidden; /* Prevent horizontal scrollbar from Lenis */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: #f5e6c8;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--color-primary);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-btn:hover {
+            color: var(--color-secondary);
+        }
+
+        .cta-btn:hover::before {
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .text-reveal-mask {
+            overflow: hidden;
+        }
+
+        .scroll-highlight {
+            border-top: 1px solid rgba(184, 134, 11, 0.2);
+            border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+        }
+
+        .content-panel {
+            background-color: #0c0c0c; /* Darker background for panels */
+            border-radius: 8px;
+        }
+
+        .team-member-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+        }
+        .team-member-image-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icon {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-icon:hover {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .line-wrap {
+            overflow: hidden;
+            display: inline-block; /* Necessary for initial stagger */
+        }
+        .line-wrap span {
+            display: inline-block; /* Necessary for character stagger */
+        }
+
+        .image-reveal-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Allow for movement */
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="logo text-xl font-bold tracking-wider" style="font-family: var(--font-display);">LUXE STUDIO</div>
+            <nav>
+                <ul class="flex space-x-8">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-70" style="background-image: url('https://images.unsplash.com/photo-1516405339925-06150835479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); filter: blur(4px);"></div>
+            <div class="relative z-10 text-center px-4">
+                <p class="text-sm uppercase tracking-wider mb-3" style="letter-spacing: 1.5px;">Our Legacy</p>
+                <h1 class="text-7xl font-bold mb-6 leading-tight" style="font-family: var(--font-display);">Crafting Beauty, Defining Excellence.</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10" style="line-height: 1.8;">Discover the essence of Luxe Studio Salon, where over a decade of mastery meets an unwavering commitment to your personal radiance. We believe in a bespoke approach, using only the world's finest European formulations to deliver transformative results in an atmosphere of pure indulgence.</p>
+                <a href="services.html" class="cta-btn px-8 py-3 text-lg tracking-wider">Explore Services</a>
+            </div>
+        </section>
+
+        <section class="relative py-24 scroll-highlight" id="salon-philosophy">
+            <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 image-reveal-container">
+                    <img src="https://images.unsplash.com/photo-1580574392285-699f51d71f06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80" alt="Luxe Studio Interior" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-5xl font-bold mb-8 leading-tight" style="font-family: var(--font-display);">The Luxe Studio Ethos</h2>
+                    <div class="reveal-lines space-y-6 text-lg" style="line-height: 2;">
+                        <p>At Luxe Studio, we don't just offer beauty services; we curate an experience. Our philosophy is rooted in the belief that every individual deserves to feel their absolute best, and that true luxury lies in meticulous attention to detail, unparalleled skill, and a deeply personalized touch.</p>
+                        <p>Founded on a passion for artistry and a decade of collective expertise, our master stylists and beauty artisans are dedicated to pushing the boundaries of conventional beauty. We are inspired by the world of high fashion and serene spa environments, blending sophisticated aesthetics with a welcoming, tranquil ambiance.</p>
+                        <p>We meticulously select each product, prioritizing European brands renowned for their efficacy, ethical sourcing, and commitment to hair and skin health. This dedication ensures that every treatment, from advanced color transformations to rejuvenating facials, delivers not just stunning results, but also nurturing care.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-24 scroll-highlight" id="our-expertise">
+            <div class="container mx-auto px-4">
+                <h2 class="text-5xl font-bold mb-16 text-center leading-tight" style="font-family: var(--font-display);">Mastery & Dedication</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div class="stat-card content-panel p-8 text-center">
+                        <div class="text-primary text-6xl font-bold mb-4 stat-number" data-target="15">15+</div>
+                        <p class="text-xl font-semibold">Years of Collective Expertise</p>
+                        <p class="mt-2 text-gray-400">Unrivaled skill across all beauty disciplines.</p>
+                    </div>
+                    <div class="stat-card content-panel p-8 text-center">
+                        <div class="text-primary text-6xl font-bold mb-4 stat-number" data-target="5000">5000+</div>
+                        <p class="text-xl font-semibold">Transformations Completed</p>
+                        <p class="mt-2 text-gray-400">Satisfied clients, radiant results.</p>
+                    </div>
+                    <div class="stat-card content-panel p-8 text-center">
+                        <div class="text-primary text-6xl font-bold mb-4 stat-number" data-target="200">200+</div>
+                        <p class="text-xl font-semibold">Premium European Products</p>
+                        <p class="mt-2 text-gray-400">Curated for optimal care and results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-32" id="our-team">
+            <div class="absolute inset-0 parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1537368910025-7776f164a822?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <h2 class="text-5xl font-bold mb-16 text-center leading-tight" style="font-family: var(--font-display);">Meet Our Artisans</h2>
+                <div class="flex flex-wrap -mx-4">
+                    <div class="w-full md:w-1/3 px-4 mb-12">
+                        <div class="team-member-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1544005313-9425788a6085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Stylist" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                        </div>
+                        <div class="mt-6 text-center">
+                            <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Isabelle Moreau</h3>
+                            <p class="text-primary font-semibold">Master Stylist & Colorist</p>
+                            <p class="mt-2 text-gray-400">12 Years Experience</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 px-4 mb-12">
+                        <div class="team-member-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1504702315737-8593493b2f1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Stylist" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                        </div>
+                        <div class="mt-6 text-center">
+                            <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Julian Vance</h3>
+                            <p class="text-primary font-semibold">Creative Director & Stylist</p>
+                            <p class="mt-2 text-gray-400">10 Years Experience</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 px-4 mb-12">
+                        <div class="team-member-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1605993809202-064138098584?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Nail Tech" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                        </div>
+                        <div class="mt-6 text-center">
+                            <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Sophia Chen</h3>
+                            <p class="text-primary font-semibold">Nail & Skin Specialist</p>
+                            <p class="mt-2 text-gray-400">8 Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative py-32 px-4" id="brand-experience">
+            <div class="container mx-auto">
+                <h2 class="text-5xl font-bold mb-16 text-center leading-tight" style="font-family: var(--font-display);">Your Sanctuary Awaits</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div class="image-reveal-container">
+                        <img src="https://images.unsplash.com/photo-1617899752890-e76c4284d72c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Salon Ambiance 1" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                    </div>
+                    <div class="content-panel p-12 rounded-lg flex items-center">
+                        <div>
+                            <h3 class="text-4xl font-bold mb-6 leading-tight" style="font-family: var(--font-display);">An Oasis of Calm</h3>
+                            <div class="reveal-lines space-y-4 text-lg" style="line-height: 2;">
+                                <p>Step into Luxe Studio and leave the world behind. Our salon is designed to be a sanctuary, where soft lighting, elegant decor, and the gentle hum of curated music create an atmosphere of pure relaxation and rejuvenation.</p>
+                                <p>Every detail, from the plush seating to the subtle aroma of premium essential oils, is curated to enhance your comfort and provide a truly spa-like escape. We invite you to unwind, indulge, and emerge feeling completely refreshed and revitalized.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-panel p-12 rounded-lg flex items-center order-last md:order-none">
+                        <div>
+                            <h3 class="text-4xl font-bold mb-6 leading-tight" style="font-family: var(--font-display);">The Art of Presentation</h3>
+                            <div class="reveal-lines space-y-4 text-lg" style="line-height: 2;">
+                                <p>Luxury is in the details. Our commitment to excellence extends to the presentation of our services. We believe that the visual aesthetic of your beauty experience should be as exquisite as the results.</p>
+                                <p>From perfectly arranged tools to the elegant way our treatments are administered, we aim to provide a feast for the senses. This dedication to refined presentation is a hallmark of the Luxe Studio experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-reveal-container">
+                        <img src="https://images.unsplash.com/photo-1554951160-c5e70472d837?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Salon Ambiance 2" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-8 mb-6">
+                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="social-icon text-xl hover:text-primary">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="social-icon text-xl hover:text-primary">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+            <p class="text-sm text-gray-500">&copy; 2024 Luxe Studio Salon. All rights reserved.</p>
+            <p class="text-xs text-gray-600 mt-2">Email: info@luxestudiosalon.com</p>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        const navbar = document.getElementById('navbar');
+
+        // Page Entrance Timeline
+        const entranceTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        entranceTl.from(navbar, { y: -80, autoAlpha: 0, duration: 0.8 })
+                  .from(".text-sm.uppercase.tracking-wider", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                  .from("h1", { y: 60, autoAlpha: 0, duration: 0.8 }, "-=0.4")
+                  .from(".text-lg.md\\:text-xl", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                  .from(".cta-btn", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // Text Split Animation on Headlines
+        SplitText.create("h1, h2", { onSplit: ({ chars }) => {
+          gsap.from(chars, {
+            y: 100,
+            autoAlpha: 0,
+            stagger: 0.02,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: "h1, h2",
+              start: "top 85%",
+              once: true
+            }
+          });
+        }});
+
+        // ScrollTrigger.batch for stat cards
+        ScrollTrigger.batch(".stat-card", {
+          onEnter: (batch) => gsap.from(batch, {
+            opacity: 0,
+            y: 60,
+            scale: 0.95,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power3.out"
+          }),
+          once: true
+        });
+
+        // Clip-Path Section Reveals
+        gsap.from("#salon-philosophy .image-reveal-container img", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: "#salon-philosophy", start: "top 80%", once: true }
+        });
+
+        gsap.from("#brand-experience .image-reveal-container img", {
+            clipPath: "inset(100% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power4.inOut",
+            scrollTrigger: { trigger: "#brand-experience", start: "top 80%", once: true }
+        });
+
+        // Magnetic CTA Buttons
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+          btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+          });
+          btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+          });
+        });
+
+        // Advanced GSAP Techniques:
+
+        // 1. Parallax Image Depth Layers
+        gsap.utils.toArray(".parallax-bg").forEach(bg => {
+          gsap.to(bg, {
+            yPercent: -20, // Adjust for desired parallax effect
+            ease: "none",
+            scrollTrigger: {
+              trigger: bg.closest('section'), // Trigger relative to the section
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          });
+        });
+
+        // 2. Staggered Text Line Reveal (mask style)
+        gsap.utils.toArray(".reveal-lines p").forEach(p => {
+          const split = new SplitText(p, { type: "lines", linesClass: "line-wrap" });
+          split.lines.forEach(line => line.parentNode.style.overflow = "hidden");
+          gsap.from(split.lines, {
+            y: "100%",
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: p,
+              start: "top 85%",
+              once: true
+            }
+          });
+        });
+
+        // 3. Counter Number Animation
+        gsap.utils.toArray(".stat-number").forEach(el => {
+          const target = parseInt(el.dataset.target);
+          gsap.from({ val: 0 }, {
+            val: target,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el.closest('.stat-card'), // Trigger relative to the card
+              start: "top 85%",
+              once: true
+            },
+            onUpdate: function() {
+              el.textContent = Math.round(this.targets()[0].val) + (el.textContent.includes('+') ? '+' : '');
+            }
+          });
+        });
+
+        // 4. Magnetic Hover on Team Member Images
+        document.querySelectorAll(".team-member-image-wrapper").forEach(el => {
+          el.addEventListener("mousemove", (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) * 0.1;
+            const y = (e.clientY - rect.top - rect.height / 2) * 0.1;
+            gsap.to(el, { x, y, duration: 0.4, ease: "power2.out" });
+          });
+          el.addEventListener("mouseleave", () => {
+            gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
+          });
+        });
+
+    </script>
+</body>
+</html>
