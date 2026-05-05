@@ -11,15 +11,16 @@
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <style>
         :root {
-            --color-primary: #B8860B;
-            --color-secondary: #1e1e1e;
-            --color-accent: #c9a84c;
+            --color-primary: #D4AF37;
+            --color-secondary: #0c0c0c;
+            --color-accent: #ffffff;
+            --color-text-muted: #d1d1d1;
             --font-display: 'Playfair Display', serif;
             --font-body: 'Lato', sans-serif;
             --bg-dark: #0c0c0c;
-            --text-light: #e8d5a3;
-            --text-white: #f5e6c8;
-            --gold-accent: #c9a84c;
+            --text-light: #d1d1d1;
+            --text-white: #ffffff;
+            --gold-accent: #D4AF37;
         }
         .text-primary { color: var(--color-primary) !important; }
         .text-secondary { color: var(--color-secondary) !important; }
@@ -119,16 +120,16 @@
                     </g>
                     <defs>
                         <linearGradient id="paint0_linear_101_28" x1="1351.75" y1="102" x2="965" y2="801.502" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
-                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                            <stop offset="0" stop-color="#D4AF37" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
                         </linearGradient>
                         <linearGradient id="paint1_linear_101_28" x1="704.75" y1="61.5655" x2="329" y2="801.5655" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
-                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                            <stop offset="0" stop-color="#D4AF37" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
                         </linearGradient>
                         <linearGradient id="paint2_linear_101_28" x1="1440" y1="200" x2="1053" y2="801.502" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stop-color="#c9a84c" stop-opacity="0.4"/>
-                            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+                            <stop offset="0" stop-color="#D4AF37" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
                         </linearGradient>
                         <clipPath id="clip0_101_28">
                             <rect width="1440" height="800" fill="white"/>
@@ -177,7 +178,7 @@
             </div>
             <div class="relative z-10 max-w-3xl text-center">
                 <h2 class="text-4xl font-bold section-title mb-6" id="products-header">Our Commitment to Quality</h2>
-                <p class="text-lg section-description mb-8" id="products-intro">
+                <p class="text-lg section-description mb-8 text-accent" id="products-intro">
                     We exclusively partner with the world's most esteemed European brands, ensuring every strand of hair and every touch of skin receives the pinnacle of care and innovation.
                 </p>
                 <a href="about.html#brands" class="cta-btn inline-block px-8 py-4 text-lg font-semibold border-2 border-accent text-accent rounded-full">Discover Our Brands</a>
@@ -196,14 +197,14 @@
 
     <footer class="py-10 px-8 text-center border-t border-accent/20">
         <div class="flex justify-center space-x-6 mb-6">
-            <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-text-light hover:text-accent transition duration-300 text-xl">
+            <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-accent transition duration-300 text-xl">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-text-light hover:text-accent transition duration-300 text-xl">
+            <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-accent transition duration-300 text-xl">
                 <i class="fab fa-facebook-f"></i>
             </a>
         </div>
-        <p class="text-sm text-text-light/70">&copy; 2023 Luxe Studio Salon. All rights reserved.</p>
+        <p class="text-sm text-gray-300">&copy; 2023 Luxe Studio Salon. All rights reserved.</p>
     </footer>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -215,13 +216,34 @@
         gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        const SplitText = {
-            create: (selector, vars) => {
+        class SplitText {
+            constructor(el, vars = {}) {
+                this.el = typeof el === 'string' ? document.querySelector(el) : el;
+                this.vars = vars;
+                this.lines = [];
+                this._splitLines();
+            }
+            _splitLines() {
+                if (!this.el) return;
+                const words = this.el.textContent.trim().split(/\s+/);
+                this.el.innerHTML = '';
+                words.forEach((word, i, arr) => {
+                    const span = document.createElement('span');
+                    span.textContent = word;
+                    span.style.display = 'inline-block';
+                    this.lines.push(span);
+                    this.el.appendChild(span);
+                    if (i < arr.length - 1) {
+                        this.el.appendChild(document.createTextNode(' '));
+                    }
+                });
+            }
+            static create(selector, vars) {
                 document.querySelectorAll(selector).forEach(el => {
                     const text = el.textContent.trim();
                     el.innerHTML = '';
                     const chars = [];
-                    text.split(/s+/).forEach((word, i, arr) => {
+                    text.split(/\s+/).forEach((word, i, arr) => {
                         const wordSpan = document.createElement('span');
                         wordSpan.style.display = 'inline-block';
                         wordSpan.style.whiteSpace = 'nowrap';
@@ -243,7 +265,7 @@
                     if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
                 });
             }
-        };
+        }
 
         // 1. Page Entrance Timeline
         const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -269,6 +291,33 @@
             });
         }});
 
+        // Adding a generic fade-in-up for elements without specific animations
+        document.querySelectorAll("[data-animation]").forEach(el => {
+            const animType = el.getAttribute("data-animation");
+            if (animType === "fade-in-up") {
+                gsap.from(el, {
+                    y: 40,
+                    autoAlpha: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: el, start: "top 90%", once: true }
+                });
+            } else if (animType === "fade-in-scale") {
+                 gsap.from(el, {
+                    y: 30,
+                    autoAlpha: 0,
+                    scale: 0.95,
+                    duration: 0.7,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: el, start: "top 90%", once: true }
+                });
+            } else if (animType === "split-text-reveal") {
+                // Already handled by SplitText.create above for h1, h2
+            } else if (animType === "card-reveal") {
+                // Already handled by ScrollTrigger.batch
+            }
+        });
+
         // Service Data
         const servicesData = [
             {"name": "Hair Coloring", "description": "Full spectrum of coloring services including root touch-ups, all-over color, and creative coloring techniques."},
@@ -290,7 +339,7 @@
             const cardHtml = `
                 <div class="service-card p-6 rounded-lg text-center transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                     <h3 class="text-2xl font-bold font-display mb-3">${service.name}</h3>
-                    <p class="text-sm text-text-light/80 leading-relaxed">${service.description}</p>
+                    <p class="text-sm text-gray-300 leading-relaxed">${service.description}</p>
                 </div>
             `;
             serviceGrid.innerHTML += cardHtml;
@@ -338,6 +387,20 @@
             });
         });
 
+        // Clip-Path Section Reveals
+        gsap.utils.toArray(".section-to-reveal").forEach(section => {
+            gsap.from(section, {
+                clipPath: "inset(100% 0% 0% 0%)",
+                duration: 1.2,
+                ease: "power4.inOut",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    once: true
+                }
+            });
+        });
+
         // Advanced GSAP Techniques Selection:
         // 1. Parallax Image Depth Layers
         gsap.utils.toArray(".parallax-section").forEach(section => {
@@ -352,7 +415,7 @@
         // 2. Staggered Text Line Reveal (mask style)
         document.querySelectorAll(".reveal-lines p").forEach(p => {
             const split = new SplitText(p, { type: "lines", linesClass: "line-wrap" });
-            split.lines.forEach(line => line.parentNode.style.overflow = "hidden");
+            p.style.overflow = "hidden";
             gsap.from(split.lines, {
                 y: "100%", duration: 0.8, stagger: 0.1, ease: "power3.out",
                 scrollTrigger: { trigger: p, start: "top 85%", once: true }
@@ -362,10 +425,11 @@
         // 3. Counter Number Animation
         gsap.utils.toArray(".stat-number").forEach(el => {
             const target = parseInt(el.dataset.target);
-            gsap.from({ val: 0 }, {
+            const counter = { val: 0 };
+            gsap.to(counter, {
                 val: target, duration: 2, ease: "power2.out",
                 scrollTrigger: { trigger: el, start: "top 85%", once: true },
-                onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + "+"; }
+                onUpdate: function() { el.textContent = Math.round(counter.val) + "+"; }
             });
         });
 

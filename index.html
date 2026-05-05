@@ -13,15 +13,16 @@
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <style>
         :root {
-            --color-primary: #B8860B; /* Gold */
-            --color-secondary: #1a1a1a; /* Dark background */
-            --color-accent: #e8d5a3; /* Soft text */
+            --color-primary: #D4AF37; /* Brighter, cooler gold */
+            --color-secondary: #0c0c0c; /* Deep black */
+            --color-accent: #ffffff; /* Pure white for lightness */
+            --color-text-muted: #d1d1d1; /* Light grey */
             --font-display: 'Playfair Display', serif;
             --font-body: 'Lato', sans-serif;
         }
         body {
             background-color: var(--color-secondary);
-            color: var(--color-accent);
+            color: var(--color-text-muted);
             font-family: var(--font-body);
             overflow-x: hidden;
         }
@@ -147,13 +148,34 @@
 <body>
 
     <script>
-        const SplitText = {
-            create: (selector, vars) => {
+        class SplitText {
+            constructor(el, vars = {}) {
+                this.el = typeof el === 'string' ? document.querySelector(el) : el;
+                this.vars = vars;
+                this.lines = [];
+                this._splitLines();
+            }
+            _splitLines() {
+                if (!this.el) return;
+                const words = this.el.textContent.trim().split(/\s+/);
+                this.el.innerHTML = '';
+                words.forEach((word, i, arr) => {
+                    const span = document.createElement('span');
+                    span.textContent = word;
+                    span.style.display = 'inline-block';
+                    this.lines.push(span);
+                    this.el.appendChild(span);
+                    if (i < arr.length - 1) {
+                        this.el.appendChild(document.createTextNode(' '));
+                    }
+                });
+            }
+            static create(selector, vars) {
                 document.querySelectorAll(selector).forEach(el => {
                     const text = el.textContent.trim();
                     el.innerHTML = '';
                     const chars = [];
-                    text.split(/s+/).forEach((word, i, arr) => {
+                    text.split(/\s+/).forEach((word, i, arr) => {
                         const wordSpan = document.createElement('span');
                         wordSpan.style.display = 'inline-block';
                         wordSpan.style.whiteSpace = 'nowrap';
@@ -175,7 +197,7 @@
                     if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
                 });
             }
-        };
+        }
     </script>
 
     <header class="fixed top-0 left-0 w-full z-50 p-6 px-8 flex justify-between items-center nav-container">
@@ -208,13 +230,13 @@
         <section class="py-32 px-8 relative section-to-reveal" style="background-color: #0c0c0c;">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1596063339076-6c1f5a8c6d68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Stylist at work" class="w-full h-auto rounded-lg shadow-xl">
-                    <div class="absolute -bottom-4 -left-4 w-full h-full border-4 border-primary rounded-lg z-[-1]"></div>
+                    <img src="https://cdn.create.vista.com/api/media/small/660916904/stock-photo-beauty-profession-hairdo-hairdresser-braids-brushing-short-brunette-hair-woman" alt="Stylist at work" class="w-full h-auto rounded-lg shadow-xl">
+                    <div class="absolute -bottom-4 -left-4 w-full h-full border-4 rounded-lg z-[-1]" style="border-color: var(--color-primary);"></div>
                 </div>
                 <div>
-                    <h2 class="text-5xl font-bold mb-6 section-title">The Luxe Difference</h2>
-                    <p class="text-lg leading-relaxed mb-6">At Luxe Studio Salon, we believe in a holistic approach to beauty. Our master stylists, each with over a decade of experience, combine artistic vision with technical precision. We exclusively use the finest European products, meticulously chosen for their quality and efficacy, ensuring that every service transforms and revitalizes.</p>
-                    <p class="text-lg leading-relaxed">Step into a sanctuary where luxury meets expertise, and emerge feeling truly exquisite.</p>
+                    <h2 class="text-5xl font-bold mb-6 section-title text-accent">The Luxe Difference</h2>
+                    <p class="text-lg leading-relaxed mb-6 text-accent">At Luxe Studio Salon, we believe in a holistic approach to beauty. Our master stylists, each with over a decade of experience, combine artistic vision with technical precision. We exclusively use the finest European products, meticulously chosen for their quality and efficacy, ensuring that every service transforms and revitalizes.</p>
+                    <p class="text-lg leading-relaxed text-accent">Step into a sanctuary where luxury meets expertise, and emerge feeling truly exquisite.</p>
                 </div>
             </div>
         </section>
@@ -285,19 +307,19 @@
             <div class="horizontal-wrapper">
                 <div class="horizontal-track">
                     <div class="gallery-item aspect-square">
-                        <img src="https://images.unsplash.com/photo-1583394838529-6392904082d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 1" class="object-cover rounded-lg">
+                        <img src="https://media.istockphoto.com/id/1497806504/photo/hair-styling-in-beauty-salon-woman-does-her-hair-in-modern-beauty-salon-woman-stylist-dries.jpg?s=612x612&w=0&k=20&c=3dO_HWS8WvSGNbGmxTsqK70vZMGqM2REnbVJG09YnmI=" alt="Gallery Image 1" class="object-cover rounded-lg">
                     </div>
                     <div class="gallery-item aspect-square">
-                        <img src="https://images.unsplash.com/photo-1519677137144-72a7275c9b3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 2" class="object-cover rounded-lg">
+                        <img src="https://media.istockphoto.com/id/1153438285/photo/woman-at-hair-salon.jpg?s=612x612&w=0&k=20&c=FyHTWvInPUeuMgNMBdDG1765edXLx9eoUKF_iaptvaU=" alt="Gallery Image 2" class="object-cover rounded-lg">
                     </div>
                     <div class="gallery-item aspect-square">
-                        <img src="https://images.unsplash.com/photo-1619702418335-7c450a76a950?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 3" class="object-cover rounded-lg">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJ__96xE5dY9_XnPWHSMmGD1TGHu1JGTuyA&s" alt="Gallery Image 3" class="object-cover rounded-lg">
                     </div>
                     <div class="gallery-item aspect-square">
-                        <img src="https://images.unsplash.com/photo-1622631126531-e30521176862?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 4" class="object-cover rounded-lg">
+                        <img src="https://cucumbabeautysalon.com/wp-content/uploads/2026/03/Modern-Ladies-Hair-Salon.jpg" alt="Gallery Image 4" class="object-cover rounded-lg">
                     </div>
                     <div class="gallery-item aspect-square">
-                        <img src="https://images.unsplash.com/photo-1606616735574-6f8d70a04980?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="Gallery Image 5" class="object-cover rounded-lg">
+                        <img src="https://img.freepik.com/free-photo/focused-make-up-artist-applying-eyeshadow-woman-with-brush_23-2148332528.jpg?semt=ais_user_personalization&w=740&q=80" alt="Gallery Image 5" class="object-cover rounded-lg">
                     </div>
                 </div>
             </div>
@@ -368,11 +390,17 @@
         });
 
         // Clip-Path Section Reveals
-        gsap.from(".section-to-reveal", {
-            clipPath: "inset(100% 0% 0% 0%)",
-            duration: 1.2,
-            ease: "power4.inOut",
-            scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+        gsap.utils.toArray(".section-to-reveal").forEach(section => {
+            gsap.from(section, {
+                clipPath: "inset(100% 0% 0% 0%)",
+                duration: 1.2,
+                ease: "power4.inOut",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    once: true
+                }
+            });
         });
 
         // Magnetic CTA Buttons
@@ -407,29 +435,24 @@
         // 6. Counter Number Animation
         gsap.utils.toArray(".stat-number").forEach(el => {
             const target = parseInt(el.dataset.target);
-            gsap.from({ val: 0 }, {
+            const counter = { val: 0 };
+            gsap.to(counter, {
                 val: target, duration: 2, ease: "power2.out",
                 scrollTrigger: { trigger: el, start: "top 85%", once: true },
                 onUpdate: function() {
-                    el.textContent = Math.round(this.targets()[0].val) + "+";
+                    el.textContent = Math.round(counter.val) + "+";
                 }
             });
         });
 
-        // 4. SVG Mask / Clip-Path Reveal (using inset for simplicity, can be expanded)
-        gsap.from(".section-to-reveal", {
-            clipPath: "inset(100% 0% 0% 0%)",
-            duration: 1.2,
-            ease: "power4.inOut",
-            scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
-        });
+
 
         // 5. Staggered Text Line Reveal (for subtitles/descriptions if needed, currently not applied but can be used on hero tagline)
         // Example if applied to hero tagline:
         const heroTagline = document.querySelector('.hero-tagline');
         if (heroTagline) {
             const splitTagline = new SplitText(heroTagline, { type: "lines", linesClass: "line-wrap" });
-            splitTagline.lines.forEach(line => line.parentNode.style.overflow = "hidden");
+            heroTagline.style.overflow = "hidden";
             gsap.from(splitTagline.lines, {
                 y: "100%", duration: 0.8, stagger: 0.1, ease: "power3.out",
                 scrollTrigger: { trigger: heroTagline, start: "top 85%", once: true }
