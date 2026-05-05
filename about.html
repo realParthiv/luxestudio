@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --color-primary: #D4AF37;
@@ -24,6 +25,9 @@
         .text-primary { color: var(--color-primary) !important; }
         .text-secondary { color: var(--color-secondary) !important; }
         .text-accent { color: var(--color-accent) !important; }
+        .bg-primary { background-color: var(--color-primary) !important; }
+        .bg-secondary { background-color: var(--color-secondary) !important; }
+        .bg-accent { background-color: var(--color-accent) !important; }
 
         body {
             background-color: var(--color-secondary);
@@ -147,10 +151,12 @@
 </head>
 <body>
 
-    <header id="navbar">
-        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-            <div class="logo text-xl font-bold tracking-wider" style="font-family: var(--font-display);">LUXE STUDIO</div>
-            <nav>
+    <header id="navbar" class="sticky top-0 left-0 w-full z-50 transition-all duration-300 bg-black/50 backdrop-blur-md">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center" id="nav-content">
+            <a href="index.html" class="logo text-2xl font-bold tracking-widest text-accent hover:text-primary transition-colors" style="font-family: var(--font-display);">LUXE STUDIO</a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:block">
                 <ul class="flex space-x-8">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
@@ -159,24 +165,31 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
+
+            <!-- Mobile Menu Btn -->
+            <button id="mobile-menu-btn" class="md:hidden text-accent text-3xl focus:outline-none">
+                <i class="fas fa-bars-staggered"></i>
+            </button>
         </div>
     </header>
 
     <main>
         <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center opacity-70" style="background-image: url('https://images.unsplash.com/photo-1516405339925-06150835479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); filter: blur(4px);"></div>
+            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-70" style="filter: blur(4px);">
+                <source src="media/gettyimages-1326018308-640_adpp.mp4" type="video/mp4">
+            </video>
             <div class="relative z-10 text-center px-4">
                 <p class="text-sm uppercase tracking-wider mb-3" style="letter-spacing: 1.5px;">Our Legacy</p>
                 <h1 class="text-7xl font-bold mb-6 leading-tight" style="font-family: var(--font-display);">Crafting Beauty, Defining Excellence.</h1>
                 <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10" style="line-height: 1.8;">Discover the essence of Luxe Studio Salon, where over a decade of mastery meets an unwavering commitment to your personal radiance. We believe in a bespoke approach, using only the world's finest European formulations to deliver transformative results in an atmosphere of pure indulgence.</p>
-                <a href="services.html" class="cta-btn px-8 py-3 text-lg tracking-wider">Explore Services</a>
+                <a href="services.html" class="cta-btn px-8 py-3 text-lg tracking-wider bg-white text-black hover:bg-primary hover:text-white border-none transition-all duration-300">Explore Services</a>
             </div>
         </section>
 
         <section class="relative py-24 scroll-highlight" id="salon-philosophy">
             <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-16">
                 <div class="lg:w-1/2 image-reveal-container">
-                    <img src="https://www.andacademy.com/resources/wp-content/uploads/2024/11/Untitled-5.webp" alt="Luxe Studio Interior" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                    <img src="media/salon_interior_luxury_1777959708427.png" alt="Luxe Studio Interior" class="w-full h-auto object-cover rounded-lg shadow-xl">
                 </div>
                 <div class="lg:w-1/2">
                     <h2 class="text-5xl font-bold mb-8 leading-tight" style="font-family: var(--font-display);">The Luxe Studio Ethos</h2>
@@ -213,14 +226,14 @@
         </section>
 
         <section class="relative py-32" id="our-team">
-            <div class="absolute inset-0 parallax-bg" style="background-image: url('https://www.andacademy.com/resources/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-17-at-11.02.07-AM-0-1-1200x900.jpeg');"></div>
+            <div class="absolute inset-0 parallax-bg" style="background-image: url('media/salon_interior_luxury_1777959708427.png');"></div>
             <div class="container mx-auto px-4 relative z-10">
                 <h2 class="text-5xl font-bold mb-16 text-center leading-tight" style="font-family: var(--font-display);">Meet Our Artisans</h2>
 
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-full md:w-1/3 px-4 mb-12">
                         <div class="team-member-image-wrapper">
-                            <img src="https://fenixkauneus.fi/wp-content/uploads/2025/07/Jannina-1-25-1024x768.jpg.webp" alt="Stylist" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                            <img src="media/team_member_1_1777959735356.png" alt="Isabelle Moreau" class="w-full h-auto object-cover rounded-lg shadow-lg">
                         </div>
                         <div class="mt-6 text-center">
                             <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Isabelle Moreau</h3>
@@ -230,7 +243,7 @@
                     </div>
                     <div class="w-full md:w-1/3 px-4 mb-12">
                         <div class="team-member-image-wrapper">
-                            <img src="https://fenixkauneus.fi/wp-content/uploads/2025/07/Lada-1-25-1024x768.jpg.webp" alt="Stylist" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                            <img src="media/team_member_2_1777959755246.png" alt="Julian Vance" class="w-full h-auto object-cover rounded-lg shadow-lg">
                         </div>
                         <div class="mt-6 text-center">
                             <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Julian Vance</h3>
@@ -240,7 +253,7 @@
                     </div>
                     <div class="w-full md:w-1/3 px-4 mb-12">
                         <div class="team-member-image-wrapper">
-                            <img src="https://fenixkauneus.fi/wp-content/uploads/2025/07/Minna-1-25-1024x768.jpg.webp" alt="Nail Tech" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                            <img src="media/team_member_3_1777959778328.png" alt="Sophia Chen" class="w-full h-auto object-cover rounded-lg shadow-lg">
                         </div>
                         <div class="mt-6 text-center">
                             <h3 class="text-2xl font-bold mb-2" style="font-family: var(--font-display);">Sophia Chen</h3>
@@ -257,7 +270,7 @@
                 <h2 class="text-5xl font-bold mb-16 text-center leading-tight" style="font-family: var(--font-display);">Your Sanctuary Awaits</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                     <div class="image-reveal-container">
-                        <img src="https://content3.jdmagicbox.com/comp/thiruvananthapuram/y3/0471px471.x471.190430135008.d3y3/catalogue/ambience-hair-and-beauty-salon-vellayambalam-thiruvananthapuram-beauty-spas-for-women-yox7tkffsm.jpg" alt="Salon Ambiance 1" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                        <img src="media/salon_ambiance_sanctuary_1777959845425.png" alt="Salon Ambiance 1" class="w-full h-auto object-cover rounded-lg shadow-xl">
                     </div>
                     <div class="content-panel p-12 rounded-lg flex items-center">
                         <div>
@@ -278,7 +291,7 @@
                         </div>
                     </div>
                     <div class="image-reveal-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9-7IziCD0Nb0MwdT69LFuCZEs-XXB0pAjVA&s" alt="Salon Ambiance 2" class="w-full h-auto object-cover rounded-lg shadow-xl">
+                        <img src="media/salon_interior_luxury_1777959708427.png" alt="Salon Ambiance 2" class="w-full h-auto object-cover rounded-lg shadow-xl">
                     </div>
                 </div>
             </div>
@@ -286,22 +299,37 @@
 
     </main>
 
-    <footer class="bg-secondary py-12">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-8 mb-6">
-                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="social-icon text-xl hover:text-primary">
+    <footer class="bg-black py-12 px-8 text-center text-gray-400 border-t border-accent/10">
+        <div class="container mx-auto">
+            <div class="mb-8">
+                <a href="index.html" class="text-3xl font-bold font-display text-accent tracking-widest">LUXE STUDIO</a>
+                <p class="mt-4 max-w-md mx-auto">The pinnacle of luxury hair and beauty services in the heart of the city.</p>
+            </div>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-all duration-300 text-2xl">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="social-icon text-xl hover:text-primary">
+                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-all duration-300 text-2xl">
                     <i class="fab fa-facebook-f"></i>
                 </a>
             </div>
-            <p class="text-sm text-gray-300">&copy; 2024 Luxe Studio Salon. All rights reserved.</p>
-            <p class="text-xs text-gray-400 mt-2">Email: info@luxestudiosalon.com</p>
+            <p>&copy; <span id="copyright-year"></span> LUXE STUDIO. All rights reserved. | <a href="mailto:info@luxestudiosalon.com" class="hover:text-accent transition-colors">info@luxestudiosalon.com</a></p>
         </div>
     </footer>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Mobile Menu Overlay (Moved to body root for better visibility) -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full z-[9999] flex flex-col items-center justify-start pt-48 space-y-10 text-3xl font-display transform translate-x-full transition-transform duration-500 md:hidden overflow-y-auto" style="background-color: #000000;">
+        <button id="close-menu" class="absolute top-10 right-10 text-accent text-4xl hover:rotate-90 transition-transform duration-300">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html" class="hover:text-accent transition-colors tracking-widest">HOME</a>
+        <a href="about.html" class="hover:text-accent transition-colors tracking-widest text-accent">ABOUT</a>
+        <a href="services.html" class="hover:text-accent transition-colors tracking-widest">SERVICES</a>
+        <a href="gallery.html" class="hover:text-accent transition-colors tracking-widest">GALLERY</a>
+        <a href="contact.html" class="hover:text-accent transition-colors tracking-widest">CONTACT</a>
+    </div>
+
+
     <script>
         class SplitText {
             constructor(el, vars = {}) {
@@ -488,6 +516,57 @@
           });
         });
 
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        if (menuBtn && mobileMenu && closeBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('translate-x-full');
+                gsap.from(mobileLinks, {
+                    x: 50,
+                    opacity: 0,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    delay: 0.2
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                });
+            });
+        }
+
+        // Navbar Scroll Effect for Sticky Navbar
+        const navbar = document.getElementById('navbar');
+        const navContent = document.getElementById('nav-content');
+        if (navbar && navContent) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-black/80', 'shadow-2xl');
+                    navbar.classList.remove('bg-black/50');
+                    navContent.classList.add('py-4');
+                    navContent.classList.remove('py-6');
+                } else {
+                    navbar.classList.remove('bg-black/80', 'shadow-2xl');
+                    navbar.classList.add('bg-black/50');
+                    navContent.classList.add('py-6');
+                    navContent.classList.remove('py-4');
+                }
+            });
+        }
+        // Set dynamic copyright year
+        const yearSpan = document.getElementById('copyright-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

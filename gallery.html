@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -35,6 +36,9 @@
         .text-primary { color: var(--color-primary) !important; }
         .text-secondary { color: var(--color-secondary) !important; }
         .text-accent { color: var(--color-accent) !important; }
+        .bg-primary { background-color: var(--color-primary) !important; }
+        .bg-secondary { background-color: var(--color-secondary) !important; }
+        .bg-accent { background-color: var(--color-accent) !important; }
 
         .nav-link {
             position: relative;
@@ -161,20 +165,42 @@
 </head>
 <body>
 
-    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 py-6 px-8 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent transition-all duration-500">
-        <div class="text-2xl font-bold font-display text-accent">Luxestudio</div>
-        <ul class="flex space-x-8">
+    <nav id="main-nav" class="sticky top-0 left-0 right-0 z-50 py-6 px-8 flex justify-between items-center bg-black/50 backdrop-blur-md transition-all duration-500">
+        <a href="index.html" class="text-2xl font-bold font-display text-accent tracking-widest hover:opacity-80 transition-opacity">LUXE STUDIO</a>
+        
+        <!-- Desktop Nav -->
+        <ul class="hidden md:flex space-x-8">
             <li><a href="index.html" class="nav-link text-lg font-medium">Home</a></li>
             <li><a href="about.html" class="nav-link text-lg font-medium">About</a></li>
             <li><a href="services.html" class="nav-link text-lg font-medium">Services</a></li>
-            <li><a href="gallery.html" class="nav-link text-lg font-medium">Gallery</a></li>
+            <li><a href="gallery.html" class="nav-link text-lg font-medium text-accent">Gallery</a></li>
             <li><a href="contact.html" class="nav-link text-lg font-medium">Contact</a></li>
         </ul>
+
+        <!-- Mobile Menu Btn -->
+        <button onclick="toggleMobileMenu(true)" class="md:hidden text-accent text-3xl focus:outline-none relative z-[110]">
+            <i class="fas fa-bars-staggered"></i>
+        </button>
     </nav>
 
-    <header class="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden" style="background: url('media/visit-hairdresser-before-important-day.jpg'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-black/60"></div>
-        <div class="relative z-10 p-8">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[9999] flex flex-col items-center justify-start pt-48 space-y-10 text-3xl font-display md:hidden overflow-y-auto" style="background-color: #000000; display: none;">
+        <button onclick="toggleMobileMenu(false)" class="absolute top-10 right-10 text-accent text-4xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html" class="hover:text-accent transition-colors tracking-widest">HOME</a>
+        <a href="about.html" class="hover:text-accent transition-colors tracking-widest">ABOUT</a>
+        <a href="services.html" class="hover:text-accent transition-colors tracking-widest">SERVICES</a>
+        <a href="gallery.html" class="hover:text-accent transition-colors tracking-widest text-accent">GALLERY</a>
+        <a href="contact.html" class="hover:text-accent transition-colors tracking-widest">CONTACT</a>
+    </div>
+
+    <header class="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="media/gettyimages-1326018308-640_adpp.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-black/60 z-10"></div>
+        <div class="relative z-20 p-8">
             <p class="text-sm font-medium text-gray-300 mb-4 tracking-wider uppercase" data-animation="fade-in-up">The Art of Transformation</p>
             <h1 class="text-6xl md:text-8xl font-bold font-display text-white mb-6" data-animation="split-text-reveal">Our Masterpieces</h1>
             <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto" data-animation="fade-in-up">Explore a curated collection of our finest work, showcasing the elegance and artistry that define Luxe Studio Salon.</p>
@@ -192,13 +218,12 @@
 
                 <div class="horizontal-wrapper relative">
                     <div class="horizontal-track flex gap-6" data-animation="fade-in-up">
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/female-hairdresser-using-hairbrush-hair-dryer.jpg'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/depositphotos_404087888-stock-photo-hairdresser-working-young-woman-beauty.jpg'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/visit-hairdresser-before-important-day.jpg'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/6421d5279f74ea0f3ca87980_hair-salon-equipment-list.webp'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/female-hairdresser-using-hairbrush-hair-dryer.jpg'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/depositphotos_404087888-stock-photo-hairdresser-working-young-woman-beauty.jpg'); height: 70vh; min-width: 60vw;"></div>
-                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/depositphotos_404087888-stock-photo-hairdresser-working-young-woman-beauty.jpg'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/gallery_balayage_1777959919193.png'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/gallery_bridal_1777959941481.png'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/gallery_styling_1777959962826.png'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/gallery_manicure_1777959987092.png'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/salon_interior_luxury_1777959708427.png'); height: 70vh; min-width: 60vw;"></div>
+                        <div class="horizontal-item bg-cover bg-center rounded-lg shadow-xl" style="background-image: url('media/salon_ambiance_sanctuary_1777959845425.png'); height: 70vh; min-width: 60vw;"></div>
                     
                     </div>
                 </div>
@@ -208,39 +233,39 @@
         <section class="relative py-20 px-4">
             <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" data-animation="card-reveal">
                 <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/depositphotos_404087888-stock-photo-hairdresser-working-young-woman-beauty.jpg" alt="Bridal Styling" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/gallery_bridal_1777959941481.png" alt="Bridal Styling" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Bridal Elegance</h3>
                     <p class="text-gray-300 leading-relaxed">Exquisite bridal hairstyles and makeup looks created by our master stylists for unforgettable wedding days.</p>
                 </div>
                 <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/female-hairdresser-using-hairbrush-hair-dryer.jpg" alt="Balayage" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/gallery_balayage_1777959919193.png" alt="Balayage" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Sun-Kissed Balayage</h3>
                     <p class="text-gray-300 leading-relaxed">Showcasing seamless, sun-kissed balayage achieved with premium European color lines.</p>
                 </div>
                 <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/visit-hairdresser-before-important-day.jpg" alt="Color Transformation" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/gallery_styling_1777959962826.png" alt="Color Transformation" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Vibrant Transformations</h3>
                     <p class="text-gray-300 leading-relaxed">Bold and beautiful color transformations that redefine personal style.</p>
                 </div>
                  <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/6421d5279f74ea0f3ca87980_hair-salon-equipment-list.webp" alt="Elegant Updo" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/salon_interior_luxury_1777959708427.png" alt="Elegant Updo" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Chic Updos</h3>
                     <p class="text-gray-300 leading-relaxed">Sophisticated updos perfect for any special occasion, exuding timeless grace.</p>
                 </div>
                  <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/female-hairdresser-using-hairbrush-hair-dryer.jpg" alt="Nail Art" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/gallery_manicure_1777959987092.png" alt="Nail Art" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Artistic Nails</h3>
                     <p class="text-gray-300 leading-relaxed">Intricate and creative nail art designs to make a statement.</p>
                 </div>
                  <div class="work-card rounded-lg p-6 text-center shadow-lg border border-accent/20" style="background-color: #242424;">
-                    <img src="media/depositphotos_404087888-stock-photo-hairdresser-working-young-woman-beauty.jpg" alt="Facial Care" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
+                    <img src="media/salon_ambiance_sanctuary_1777959845425.png" alt="Facial Care" class="w-full h-64 object-cover rounded-lg mb-6 shadow-md">
                     <h3 class="text-2xl font-bold font-display text-accent mb-3">Radiant Skin</h3>
                     <p class="text-gray-300 leading-relaxed">Premium facial care treatments that leave your skin glowing with health.</p>
                 </div>
             </div>
         </section>
 
-        <section class="relative py-32 px-4 parallax-section" style="background-image: url('media/visit-hairdresser-before-important-day.jpg'); background-size: cover; background-position: center;">
+        <section class="relative py-32 px-4 parallax-section" style="background-image: url('media/salon_interior_luxury_1777959708427.png'); background-size: cover; background-position: center;">
             <div class="absolute inset-0 bg-black/70"></div>
             <div class="container mx-auto text-center relative z-10">
                 <div class="reveal-lines">
@@ -253,20 +278,41 @@
 
     </main>
 
-    <footer class="bg-secondary py-12 px-8 text-center">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0">
-                <div class="text-2xl font-bold font-display text-accent">Luxestudio</div>
-                <p class="text-gray-400 mt-2">&copy; 2024 Luxe Studio Salon. All rights reserved.</p>
+    <footer class="bg-black py-12 px-8 text-center text-gray-400 border-t border-accent/10">
+        <div class="container mx-auto">
+            <div class="mb-8">
+                <a href="index.html" class="text-3xl font-bold font-display text-accent tracking-widest">LUXE STUDIO</a>
+                <p class="mt-4 max-w-md mx-auto">The pinnacle of luxury hair and beauty services in the heart of the city.</p>
             </div>
-            <div class="flex space-x-6">
-                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors duration-300">Instagram</a>
-                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors duration-300">Facebook</a>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="https://www.instagram.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-all duration-300 text-2xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/luxestudiosalon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-all duration-300 text-2xl">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
             </div>
         </div>
     </footer>
 
+
     <script>
+        function toggleMobileMenu(open) {
+            const menu = document.getElementById('mobile-menu');
+            if (open) {
+                menu.style.display = 'flex';
+                gsap.from("#mobile-menu a", {
+                    y: 20,
+                    opacity: 0,
+                    stagger: 0.1,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            } else {
+                menu.style.display = 'none';
+            }
+        }
+
         class SplitText {
             constructor(el, vars = {}) {
                 this.el = typeof el === 'string' ? document.querySelector(el) : el;
@@ -473,13 +519,22 @@
             }
         });
 
-        // Ensure navigation background changes on scroll
+        // Navbar Scroll Effect for Sticky Navbar
+
+        // Navbar Scroll Effect for Sticky Navbar
         const nav = document.getElementById('main-nav');
-        ScrollTrigger.create({
-            start: "top 100",
-            end: 9999,
-            toggleClass: { className: "bg-gradient-to-b from-black/90 to-transparent", "className": "bg-black/90" }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-black/80', 'py-4', 'shadow-2xl');
+                nav.classList.remove('py-6', 'bg-black/50');
+            } else {
+                nav.classList.remove('bg-black/80', 'py-4', 'shadow-2xl');
+                nav.classList.add('py-6', 'bg-black/50');
+            }
         });
+        // Set dynamic copyright year
+        const yearSpan = document.getElementById('copyright-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
